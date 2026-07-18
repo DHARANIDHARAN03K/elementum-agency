@@ -139,6 +139,9 @@
 /* ============================================
    RESPONSIVE
    ============================================ */
+/* ============================================
+   RESPONSIVE
+   ============================================ */
 @media (max-width: 900px) {
   .progress__container {
     grid-template-columns: 1fr;
@@ -157,5 +160,38 @@
 
   .progress__link {
     justify-content: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .progress__container {
+    gap: 40px;
+  }
+  
+  .progress__heading {
+    font-size: 36px;
+    line-height: 1.1;
+  }
+
+  .progress__image-circle {
+    width: 220px;
+    height: 220px;
+  }
+
+  /* Scale down decorative triangles */
+  .progress__triangle--red-top {
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-bottom: 70px solid #e05252;
+    top: -20px;
+    left: 10px;
+  }
+
+  .progress__triangle--red-bottom {
+    border-left: 40px solid transparent;
+    border-right: 40px solid transparent;
+    border-top: 70px solid #e05252;
+    bottom: -20px;
+    right: 10px;
   }
 }

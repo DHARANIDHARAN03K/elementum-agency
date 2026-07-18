@@ -154,3 +154,23 @@
     font-size: 17px;
   }
 }
+
+@media (max-width: 600px) {
+  .services__heading {
+    font-size: 36px;
+  }
+  
+  .services__item {
+    padding: 16px 0;
+  }
+  
+  .services__name {
+    font-size: 16px;
+  }
+  
+  .services__arrow {
+    width: 36px;
+    height: 36px;
+    font-size: 14px;
+  }
+}

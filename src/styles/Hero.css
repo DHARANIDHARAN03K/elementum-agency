@@ -253,9 +253,40 @@
 
 @media (max-width: 600px) {
   .hero__container {
-    padding: 40px 16px 60px;
+    padding: 20px 16px 40px;
+    min-height: 85vh;
   }
+  
   .hero__heading {
     letter-spacing: -1px;
+  }
+
+  /* 
+    CRITICAL MOBILE FIX: 
+    Desktop fade masks were 180px wide. 180 + 180 = 360px.
+    A standard iPhone is 375px wide! The masks were covering the whole screen,
+    which washed out all the profiles. We reduce the mask to just 30px on mobile.
+  */
+  .hero::before,
+  .hero::after {
+    width: 30px;
+  }
+
+  /* Scale profiles even smaller so they don't fight the text */
+  .hero__profile--lg { width: 50px; height: 50px; }
+  .hero__profile--md { width: 40px; height: 40px; }
+  .hero__profile--sm { width: 30px; height: 30px; }
+
+  /* Push decorative shapes further out of the way */
+  .hero__shape--purple {
+    width: 30px;
+    height: 80px;
+    right: -10px;
+  }
+
+  .hero__squiggle--left {
+    left: -10px;
+    width: 30px;
+    opacity: 0.3; /* Less distracting on mobile */
   }
 }

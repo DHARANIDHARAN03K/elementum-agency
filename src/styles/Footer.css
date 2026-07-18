@@ -110,8 +110,8 @@
 @media (max-width: 600px) {
   .footer__container {
     grid-template-columns: 1fr;  /* 1 column on mobile */
-    gap: 32px;
-    padding: 40px 24px 24px;
+    gap: 20px; /* Tighter gap to save vertical scroll space */
+    padding: 30px 20px 20px;
   }
 
   .footer__bottom-inner {
