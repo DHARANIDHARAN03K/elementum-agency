@@ -1,0 +1,161 @@
+/* ============================================
+   PROGRESS SECTION
+   ============================================ */
+
+.progress {
+  padding: var(--section-padding);
+  background: var(--color-white);
+  position: relative;
+}
+
+.progress__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+/* ---- Left visual block ---- */
+.progress__visual {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Circular image container */
+.progress__image-circle {
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  overflow: hidden;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 40px rgba(0,0,0,0.12);
+}
+
+.progress__image-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+/* Red/coral triangles — placed relative to the circle */
+.progress__triangle {
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+
+.progress__triangle--red-top {
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  border-bottom: 100px solid #e05252;
+  top: -30px;
+  left: 20px;
+  z-index: 1;
+  animation: wiggle 5s ease-in-out infinite;
+}
+
+.progress__triangle--red-bottom {
+  border-left: 45px solid transparent;
+  border-right: 45px solid transparent;
+  border-top: 80px solid #e05252;
+  bottom: -20px;
+  right: 30px;
+  z-index: 1;
+  animation: wiggle 7s ease-in-out infinite reverse;
+}
+
+/* ---- Right text block ---- */
+.progress__content {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.progress__heading {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4vw, 48px);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -1px;
+  color: var(--color-black);
+}
+
+.progress__body {
+  font-size: 15px;
+  color: #555;
+  line-height: 1.8;
+  max-width: 420px;
+}
+
+/* "Read more" link with animated extending line */
+.progress__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--color-black);
+  transition: gap 0.3s ease;
+}
+
+.progress__link:hover {
+  gap: 20px;  /* gap increases = feels like the arrow is stretching */
+}
+
+.progress__link-line {
+  display: inline-block;
+  width: 40px;
+  height: 2px;
+  background: var(--color-black);
+  position: relative;
+  transition: width 0.3s ease;
+}
+
+.progress__link:hover .progress__link-line {
+  width: 60px;
+}
+
+/* Arrow tip */
+.progress__link-line::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -4px;
+  width: 0;
+  height: 0;
+  border-left: 8px solid var(--color-black);
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 900px) {
+  .progress__container {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .progress__image-circle {
+    width: 260px;
+    height: 260px;
+    margin: 0 auto;
+  }
+
+  .progress__body {
+    margin: 0 auto;
+  }
+
+  .progress__link {
+    justify-content: center;
+  }
+}

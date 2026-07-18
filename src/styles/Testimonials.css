@@ -1,0 +1,122 @@
+/* ============================================
+   TESTIMONIALS SECTION
+   ============================================ */
+
+.testimonials {
+  padding: var(--section-padding);
+  background: var(--color-white);
+  border-top: 1px solid rgba(0,0,0,0.06);
+  overflow: hidden;
+}
+
+.testimonials__container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.testimonials__header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.testimonials__heading {
+  font-family: var(--font-display);
+  font-size: clamp(28px, 4.5vw, 52px);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -1.5px;
+  color: var(--color-black);
+}
+
+/* ---- Main Stage: profiles + quote ---- */
+.testimonials__stage {
+  position: relative;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 0;
+}
+
+/* Profiles floating around */
+.testimonials__profiles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.testimonials__profile {
+  position: absolute;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.testimonials__profile--lg { width: 80px; height: 80px; }
+.testimonials__profile--md { width: 62px; height: 62px; }
+.testimonials__profile--sm { width: 46px; height: 46px; }
+
+.testimonials__profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ---- Central quote card ---- */
+.testimonials__quote {
+  background: rgba(245, 245, 240, 0.95);
+  border-radius: 20px;
+  padding: 40px 48px;
+  max-width: 520px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.06);
+  backdrop-filter: blur(4px);
+}
+
+.testimonials__quote-mark {
+  font-size: 72px;
+  line-height: 0;
+  color: rgba(0,0,0,0.12);
+  font-family: Georgia, serif;
+  display: block;
+  margin-bottom: 8px;
+  height: 30px;
+}
+
+.testimonials__quote-mark--close {
+  margin-top: 16px;
+  margin-bottom: 0;
+}
+
+.testimonials__quote-text {
+  font-size: 15px;
+  color: #444;
+  line-height: 1.85;
+  font-style: italic;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .testimonials__stage {
+    padding: 40px 0;
+  }
+
+  .testimonials__quote {
+    padding: 28px 24px;
+    max-width: 320px;
+  }
+
+  /* Adjust profile positions to not overlap with the smaller card */
+  .testimonials__profile--lg { width: 55px; height: 55px; }
+  .testimonials__profile--md { width: 44px; height: 44px; }
+  .testimonials__profile--sm { width: 34px; height: 34px; }
+}

@@ -1,0 +1,188 @@
+/* ============================================
+   NAVBAR STYLES
+   ============================================ */
+
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(0,0,0,0.06);
+  transition: background 0.3s ease;
+}
+
+.navbar__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 68px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* Logo */
+.navbar__logo {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--color-black);
+  letter-spacing: -0.5px;
+  transition: opacity 0.2s;
+}
+
+.navbar__logo:hover {
+  opacity: 0.7;
+}
+
+/* Desktop nav links */
+.navbar__links {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 36px;
+}
+
+/* Individual nav link — hover underline */
+.navbar__link {
+  font-family: var(--font-display);
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  position: relative;
+  padding-bottom: 3px;
+  transition: color 0.2s;
+}
+
+.navbar__link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: var(--color-black);
+  transform: translateX(-50%);
+  transition: width 0.25s ease;
+  border-radius: 1px;
+}
+
+.navbar__link:hover { color: var(--color-black); }
+.navbar__link:hover::after { width: 100%; }
+
+/* ─────────────────────────────────────────────
+   HAMBURGER BUTTON
+   Why display:none by default?
+   On DESKTOP we show the regular link list (.navbar__links).
+   The hamburger is for MOBILE only. So we hide it on desktop
+   and reveal it inside the @media (max-width: 768px) block below.
+   ───────────────────────────────────────────── */
+.navbar__hamburger {
+  display: none;           /* ← hidden on desktop */
+  flex-direction: column;
+  gap: 6px;
+  background: transparent;
+  padding: 8px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* The 3 horizontal bars */
+.navbar__hamburger span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--color-black);
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* When --open class is added by React state, bars animate into X */
+.navbar__hamburger--open span:nth-child(1) {
+  transform: translateY(8px) rotate(45deg);
+}
+.navbar__hamburger--open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.navbar__hamburger--open span:nth-child(3) {
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* ─────────────────────────────────────────────
+   MOBILE DROPDOWN MENU
+   
+   HOW THE OPEN/CLOSE ANIMATION WORKS:
+   We use max-height trick instead of display:none/block.
+   Why? You CAN'T animate display — it jumps instantly.
+   But you CAN animate max-height — it slides smoothly.
+
+   Closed: max-height = 0, overflow = hidden → content is hidden
+   Open:   max-height = 400px → content slides down into view
+   
+   The transition: max-height 0.35s ease does the smooth slide.
+   ───────────────────────────────────────────── */
+.navbar__mobile {
+  background: white;
+  overflow: hidden;           /* clips content when max-height = 0 */
+  max-height: 0;              /* closed state: nothing visible */
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  border-top: 1px solid rgba(0,0,0,0.06);
+}
+
+/* When React adds class "open", menu slides open */
+.navbar__mobile.open {
+  max-height: 400px;          /* open state: content visible */
+  padding-bottom: 16px;
+}
+
+.navbar__mobile ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 8px 24px;
+}
+
+.navbar__mobile li a {
+  display: block;
+  padding: 14px 0;
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--color-black);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  transition: color 0.2s, padding-left 0.2s;
+}
+
+.navbar__mobile li:last-child a {
+  border-bottom: none;
+}
+
+.navbar__mobile li a:hover {
+  color: #555;
+  padding-left: 6px;       /* slight indent on hover = nice touch */
+}
+
+/* ─────────────────────────────────────────────
+   RESPONSIVE BREAKPOINTS
+   max-width: 768px = "if screen is 768px wide or smaller"
+   This means: phones + small tablets
+   ───────────────────────────────────────────── */
+@media (max-width: 768px) {
+  /* Hide desktop link list on mobile */
+  .navbar__links {
+    display: none;
+  }
+
+  /* SHOW the hamburger button on mobile */
+  .navbar__hamburger {
+    display: flex;           /* ← this is what makes it appear on mobile */
+  }
+
+  /* The mobile dropdown is always rendered in the DOM,
+     but starts at max-height: 0 (invisible).
+     No display:none needed here — max-height handles it. */
+}

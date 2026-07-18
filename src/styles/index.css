@@ -1,0 +1,253 @@
+/*
+  GERBIL FONT SETUP
+  ─────────────────
+  @font-face = how you load a custom font file into CSS.
+  
+  src: url() tells the browser where to find the font file.
+  We use /fonts/Gerbil-Regular.otf — the / at the start means
+  "start from public/ folder" (Vite serves public/ as the root).
+  
+  format('opentype') tells the browser what format the file is.
+  OTF = OpenType Font. WOFF2 would be smaller/faster but OTF works too.
+  
+  If the file doesn't exist yet, the browser falls back to Space Grotesk.
+  
+  HOW TO INSTALL THE GERBIL FONT:
+  1. Go to: https://befonts.com/gerbil-font.html
+  2. Click Download
+  3. Unzip the downloaded folder
+  4. Find the .otf or .ttf file inside
+  5. Rename it exactly: Gerbil-Regular.otf
+  6. Place it in: public/fonts/Gerbil-Regular.otf  (create the fonts folder)
+  7. Save this file — the font loads automatically!
+*/
+@font-face {
+  font-family: 'Gerbil';
+  src: url('/fonts/Gerbil-Regular.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* swap = show fallback first, swap in Gerbil when loaded */
+}
+
+:root {
+  --color-black: #0a0a0a;
+  --color-white: #ffffff;
+  --color-cream: #f5f5f0;
+  --color-green-highlight: #b8f5b8;
+  --color-green-text: #2d7a2d;
+  --color-pink-accent: #ff6b6b;
+  --color-coral: #ff8c69;
+  --color-mint-bg: #d4ede0;
+  --color-purple: #7c3aed;
+  --color-orange-underline: #f59e0b;
+  --color-yellow-underline: #fbbf24;
+  --color-skeleton: #e8e8e8;
+  /* 
+    Gerbil is listed first. Browser tries Gerbil → if not found → Space Grotesk.
+    This is the "font stack" — a fallback chain.
+    Once user installs Gerbil in public/fonts/, it automatically switches.
+  */
+  --font-display: 'Gerbil', 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --max-width: 1200px;
+  --section-padding: 80px 24px;
+}
+
+
+/* ─────────────────────────────────────────────
+   SKELETON LOADER — "shimmer" effect
+   
+   WHAT IS A SKELETON LOADER?
+   Before an image loads, instead of showing a broken icon,
+   we show a gray placeholder that shimmers (like a loading bar).
+   Instagram, LinkedIn, Facebook all use this.
+   
+   HOW IT WORKS:
+   We put a gradient on the element that moves from left to right
+   using a CSS animation. This creates the "shine" moving across.
+   
+   background-size: 200% means the gradient is TWICE the element width.
+   The animation moves background-position from -100% to 200% —
+   the shine sweeps across from left to right.
+   ───────────────────────────────────────────── */
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-skeleton) 25%,
+    #f5f5f5 50%,
+    var(--color-skeleton) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite ease-in-out;
+  border-radius: 50%;   /* circle skeleton for profile images */
+}
+
+
+/* CSS Reset — why? Because every browser has default styles 
+   that differ. This creates a consistent baseline. */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth; /* why? clicking nav links scrolls smoothly, not jumps */
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-black);
+  background: var(--color-white);
+  overflow-x: hidden; /* prevents horizontal scroll from decorative elements */
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased; /* makes text look crisp on Mac/Chrome */
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  outline: none;
+  font-family: inherit;
+}
+
+/* ============================================
+   UTILITY CLASSES — reusable styles
+   ============================================ */
+.container {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Highlight: colored background behind text (like a marker) */
+.highlight-green {
+  background-color: var(--color-green-highlight);
+  padding: 2px 8px;
+  border-radius: 4px;
+  color: var(--color-black);
+}
+
+.highlight-yellow {
+  background-color: #fef9c3;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+/* Underline accent — the wavy/solid colored underline under words */
+.underline-orange {
+  position: relative;
+  display: inline-block;
+}
+.underline-orange::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-orange-underline);
+  border-radius: 2px;
+}
+
+.underline-yellow {
+  position: relative;
+  display: inline-block;
+}
+.underline-yellow::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--color-yellow-underline);
+  border-radius: 2px;
+}
+
+/* ============================================
+   ANIMATIONS — why? Makes site feel alive
+   ============================================ */
+
+/* Fade in from below — used for section entries */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Float animation — the profile pictures bob up and down */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes floatReverse {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(10px); }
+}
+
+/* Wiggle — subtle rotation for decorative shapes */
+@keyframes wiggle {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(3deg); }
+  75% { transform: rotate(-3deg); }
+}
+
+/* Draw line — for the squiggly decorative lines */
+@keyframes drawLine {
+  from { stroke-dashoffset: 500; }
+  to { stroke-dashoffset: 0; }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.7s ease forwards;
+}
+
+/* Intersection Observer targets — hidden until they scroll into view */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+
+/* Respect user's motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+}

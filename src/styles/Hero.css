@@ -1,0 +1,261 @@
+/* ============================================
+   HERO SECTION — Matches Figma exactly
+   ============================================ */
+
+.hero {
+  min-height: 100vh;
+  padding-top: 68px;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--color-white);
+}
+
+/*
+  WHY TWO PSEUDO-ELEMENTS FOR FADE MASKS?
+  ─────────────────────────────────────────
+  Profiles sit on the far left and right edges.
+  Without a fade, they look "cut off" at the edge — unprofessional.
+  With a fade, they gracefully dissolve into the white background.
+  
+  The trick: ::before and ::after with position:absolute, covering
+  the left and right edges, using a white-to-transparent gradient.
+  pointer-events: none = the mask doesn't block clicks.
+  z-index: 3 = above profiles (z-index:1) but the MASK stays behind
+  the text by giving text z-index:4.
+*/
+.hero::before,
+.hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 180px;           /* width of the fade zone */
+  z-index: 3;             /* above profiles, below text */
+  pointer-events: none;   /* doesn't block mouse events */
+}
+
+.hero::before {
+  left: 0;
+  background: linear-gradient(to right, white 30%, transparent);
+}
+
+.hero::after {
+  right: 0;
+  background: linear-gradient(to left, white 30%, transparent);
+}
+
+.hero__container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 80px 24px 100px;
+  position: relative;
+  width: 100%;
+  min-height: 92vh;       /* taller = more room for profiles to distribute */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ════════════════════════════════════════════
+   HERO HEADING — Large editorial display type
+   ════════════════════════════════════════════ */
+.hero__content {
+  text-align: center;
+  position: relative;
+  z-index: 4;             /* above the side fade masks (z-index:3) AND profiles (z-index:1) */
+  max-width: 760px;       /* narrower = profiles have more left/right breathing room */
+  width: 100%;
+}
+
+.hero__heading {
+  font-family: var(--font-display);
+  font-size: clamp(44px, 8vw, 96px);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -3px;
+  color: var(--color-black);
+  margin-bottom: 28px;
+  animation: fadeInUp 0.8s ease forwards;
+}
+
+/* ── "thinkers" → orange wavy underline (from Figma) ── */
+/* 
+  HOW THE WAVY UNDERLINE WORKS:
+  We use a background-image with a repeating wave pattern.
+  background-size controls the wave width (how many waves per word).
+  background-position puts it just below the text.
+  This is a modern CSS trick that avoids SVG for simple underlines.
+*/
+.hero__word-underline-orange {
+  position: relative;
+  display: inline-block;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='6'%3E%3Cpath d='M0,3 Q5,0 10,3 Q15,6 20,3' stroke='%23f59e0b' stroke-width='2' fill='none'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: bottom 0px left 0;
+  background-size: 20px 6px;
+  padding-bottom: 8px;
+}
+
+/* ── "changing" → pink/salmon background highlight (from Figma) ── */
+/*
+  WHY border-radius: 6px?
+  The Figma highlight looks like a slightly rounded rectangle (a "marker" effect).
+  Without border-radius it would look like a selection highlight, which is too harsh.
+  The subtle rounding makes it look hand-drawn and human.
+*/
+.hero__word-highlight-pink {
+  background: #ffc5c5;          /* soft pink — matches Figma color */
+  padding: 2px 10px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+/* ── "status" → green pill highlight (from Figma) ── */
+.hero__word-highlight-green {
+  background: #b8f5b8;          /* mint green — matches Figma */
+  padding: 2px 12px;
+  border-radius: 20px;          /* pill shape */
+  display: inline-block;
+}
+
+.hero__subtext {
+  font-family: var(--font-body);
+  font-size: clamp(15px, 1.8vw, 18px);
+  color: #555;
+  max-width: 540px;
+  margin: 0 auto;
+  line-height: 1.75;
+  animation: fadeInUp 0.8s ease 0.25s both;
+}
+
+/* ════════════════════════════════════════════
+   DECORATIVE SHAPES
+   ════════════════════════════════════════════ */
+
+/* 
+  BLACK wavy squiggly — far LEFT edge
+  Sits BEHIND the profiles (z-index:1 same level but rendered first)
+  Gives the left side depth and organic texture — matches Figma black squiggle
+*/
+.hero__squiggle--left {
+  position: absolute;
+  left: 6px;             /* very close to left edge — behind profile column */
+  top: 14%;
+  width: 48px;
+  height: 340px;
+  z-index: 1;
+  opacity: 0.6;          /* slightly faded = it's a background texture, not a feature */
+}
+
+
+/* Animate the SVG path drawing itself */
+.squiggle-path {
+  stroke-dasharray: 700;
+  stroke-dashoffset: 700;
+  animation: drawLine 2.2s ease forwards 0.3s;
+}
+
+/* Purple D-shape — RIGHT side */
+.hero__shape--purple {
+  position: absolute;
+  top: 18%;
+  right: -8px;
+  width: 90px;
+  height: 160px;
+  background: #7c3aed;
+  border-radius: 160px 0 0 160px;
+  opacity: 0.9;
+  animation: wiggle 7s ease-in-out infinite;
+  z-index: 1;
+}
+
+/* ════════════════════════════════════════════
+   FLOATING PROFILE IMAGES
+   
+   Z-INDEX STACK (bottom to top):
+   1 → profiles (.hero__profiles)
+   2 → decorative shapes (squiggle, purple shape)
+   3 → side fade masks (.hero::before, .hero::after)
+   4 → text content (.hero__content)
+   
+   Profiles are BENEATH everything — but they're in the safe zones
+   (far left / far right) so they visually never conflict with text.
+   ════════════════════════════════════════════ */
+.hero__profiles {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.hero__profile {
+  position: absolute;   /* absolute within hero__profiles container */
+  border-radius: 50%;
+  overflow: hidden;
+  border: 3px solid white;
+  box-shadow: 0 6px 28px rgba(0,0,0,0.15);
+  animation-duration: 4s;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+  /* 
+    WHY both position:absolute AND we need a positioned context for skeleton?
+    The ProfileImage component has a skeleton div with position:absolute inside.
+    For that skeleton to be positioned relative to the circle, the circle
+    itself needs to establish a "positioned context."
+    position:absolute already does this — any absolute child is positioned
+    relative to the nearest positioned ancestor (this element).
+  */
+}
+
+/* Staggered entrance — profiles fade in from their float positions */
+.hero__profile {
+  animation-fill-mode: both;
+}
+
+/* Three sizes for visual depth (Resource 3: "Value = lightness/depth") */
+/* Larger circles appear closer; smaller = further away = visual depth */
+.hero__profile--lg { width: 88px;  height: 88px; }
+.hero__profile--md { width: 66px;  height: 66px; }
+.hero__profile--sm { width: 46px;  height: 46px; }
+
+.hero__profile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+
+/* ════════════════════════════════════════════
+   RESPONSIVE
+   ════════════════════════════════════════════ */
+@media (max-width: 900px) {
+  .hero__heading {
+    letter-spacing: -1.5px;
+  }
+
+  .hero__profile--lg { width: 66px; height: 66px; }
+  .hero__profile--md { width: 50px; height: 50px; }
+  .hero__profile--sm { width: 36px; height: 36px; }
+
+  .hero__shape--purple {
+    width: 60px;
+    height: 110px;
+  }
+
+  .hero__squiggle--left {
+    left: 4px;
+    width: 40px;
+  }
+}
+
+@media (max-width: 600px) {
+  .hero__container {
+    padding: 40px 16px 60px;
+  }
+  .hero__heading {
+    letter-spacing: -1px;
+  }
+}

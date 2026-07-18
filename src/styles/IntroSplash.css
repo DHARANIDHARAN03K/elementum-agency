@@ -1,0 +1,151 @@
+/* ============================================
+   INTRO SPLASH SCREEN
+   
+   COLOR THEORY APPLIED (from the resources):
+   ─────────────────────────────────────────
+   Background: Pure black (#0a0a0a)
+   Text: Pure white (#ffffff)
+   
+   Resource 1 said: "Black = power, sophistication, mystery"
+   Resource 2 said: "Maximum contrast = maximum visual attention"
+   Resource 3 said: Complementary high-contrast pairs have the 
+     most visual impact.
+   
+   Black + White = the maximum contrast ratio (21:1).
+   WCAG accessibility requires at least 4.5:1.
+   We are at 21:1 — beyond perfect.
+   
+   This is intentional: the intro DEMANDS your full attention.
+   Then when white page reveals, it feels like a breath of fresh air.
+   ============================================ */
+
+/* The full-screen overlay */
+.intro-splash {
+  position: fixed;        /* covers entire viewport */
+  inset: 0;               /* top:0, right:0, bottom:0, left:0 */
+  z-index: 999999;        /* above EVERYTHING including custom cursor */
+  background: #0a0a0a;    /* pure black — power, sophistication */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 
+    WHY overflow: hidden?
+    The curtain-lift animation (translateY(-100%)) slides the element 
+    upward. Without overflow:hidden on parent, the sliding element 
+    could cause a scrollbar to flash during the animation.
+  */
+  overflow: hidden;
+}
+
+/* Exit animation — the whole screen slides UP like a theater curtain lifting */
+/*
+  WHY slide UP and not fade out?
+  A fade creates an abrupt disappearance — the page "pops" in.
+  Sliding upward is a physical metaphor: a curtain lifting before a show.
+  It creates anticipation and a sense of theater.
+  The page "reveals" rather than just appearing. 
+  
+  translateY(-100%) = moves element UP by its full height = off screen.
+  cubic-bezier(0.76, 0, 0.24, 1) = "expo in-out" easing:
+    - Starts fast (quick lift)
+    - Ends fast (snaps away)
+    - Creates a decisive, confident motion
+*/
+.intro-splash--exit {
+  animation: curtainLift 0.75s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes curtainLift {
+  from { transform: translateY(0); }
+  to   { transform: translateY(-100%); }
+}
+
+/* Centered content wrapper */
+.intro-splash__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+/* ── The main word "Elementum" ── */
+.intro-splash__word {
+  font-family: var(--font-display);
+  font-size: clamp(48px, 10vw, 120px);
+  font-weight: 700;
+  color: white;
+  letter-spacing: -3px;
+  display: flex;          /* flex so letters sit side by side */
+  gap: 0;
+  /* No line wrapping for the word itself */
+  white-space: nowrap;
+}
+
+/* Each individual letter */
+.intro-splash__letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(20px);  /* starts below its final position */
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+/* When visible class is added (by JavaScript) → letter rises into place */
+.intro-splash__letter--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Thin sweeping horizontal line ── */
+/*
+  The line appears after the word is complete.
+  It starts at width:0 and grows to width:100% — the "sweep" effect.
+  This is the visual moment of "completion" before the tagline appears.
+  
+  WHY a line? It creates visual breathing room — a pause between
+  the bold word and the subtle tagline. Typography rule: contrast 
+  in weight creates hierarchy. Bold word → thin line → light text.
+*/
+.intro-splash__line {
+  width: 0;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.3);  /* semi-transparent white */
+  transition: width 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  /* ease-out so line starts fast and slows at the end */
+}
+
+.intro-splash__line--visible {
+  width: min(400px, 80vw);
+}
+
+/* ── Tagline ── */
+.intro-splash__tagline {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1.8vw, 16px);
+  color: rgba(255, 255, 255, 0.55);   /* muted white — visual hierarchy */
+  letter-spacing: 2px;                /* wide letter-spacing for tagline = elegant */
+  text-transform: uppercase;
+  font-weight: 400;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.intro-splash__tagline--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   MOBILE ADJUSTMENTS
+   ============================================ */
+@media (max-width: 600px) {
+  .intro-splash__word {
+    letter-spacing: -1.5px;
+  }
+
+  .intro-splash__tagline {
+    letter-spacing: 1px;
+    text-align: center;
+    padding: 0 24px;
+  }
+}

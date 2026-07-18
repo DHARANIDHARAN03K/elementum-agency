@@ -1,0 +1,161 @@
+/* ============================================
+   NEWSLETTER SECTION — Mint green background
+   ============================================ */
+
+.newsletter {
+  padding: var(--section-padding);
+  background: var(--color-mint-bg);  /* the distinctive mint green from Figma */
+  position: relative;
+  overflow: hidden;
+  text-align: center;
+}
+
+.newsletter__container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 24px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Purple half-circle decoration (top right) */
+.newsletter__deco-circle {
+  position: absolute;
+  bottom: -30px;
+  right: -30px;
+  width: 200px;
+  height: 200px;
+  background: var(--color-purple);
+  border-radius: 50%;  /* full circle */
+  opacity: 0.7;
+  /* clip to show only left half */
+  clip-path: polygon(0 0, 50% 0, 50% 100%, 0 100%);
+}
+
+/* Curved arrow SVG decoration (top left) */
+.newsletter__deco-arrow {
+  position: absolute;
+  top: 20px;
+  left: 10%;
+  width: 120px;
+  height: 80px;
+  opacity: 0.8;
+}
+
+.newsletter__heading {
+  font-family: var(--font-display);
+  font-size: clamp(32px, 5vw, 60px);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+  color: var(--color-black);
+  margin-bottom: 16px;
+}
+
+.newsletter__subtext {
+  font-size: 15px;
+  color: #444;
+  margin-bottom: 36px;
+  line-height: 1.6;
+}
+
+/* ---- Form ---- */
+.newsletter__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.newsletter__input {
+  width: 100%;
+  max-width: 400px;
+  padding: 14px 20px;
+  border: 1.5px solid rgba(0,0,0,0.15);
+  border-radius: 50px;   /* pill shape */
+  font-size: 15px;
+  font-family: var(--font-body);
+  background: white;
+  color: var(--color-black);
+  outline: none;
+  transition: border-color 0.25s, box-shadow 0.25s;
+}
+
+.newsletter__input:focus {
+  border-color: var(--color-black);
+  box-shadow: 0 0 0 3px rgba(0,0,0,0.08);
+}
+
+/* ──────────────────────────────────────────────────────
+   Subscribe button
+   
+   COLOR THEORY APPLIED:
+   Resource 1: "Black = power, sophistication"
+   Resource 1: "Red/orange = urgency, CTA"
+   Resource 2: "Color for conscious vs unconscious brain"
+   
+   WHY we keep the button black (not orange):
+   Elementum's target audience = CMOs, Marketing Directors, Startup Founders.
+   These are sophisticated professionals. Orange = fast food urgency.
+   Black = premium, confident. The Figma also specifies black.
+   
+   HOWEVER: the hover state gets slightly warm (#1a1a1a + subtle warmth)
+   + a soft green glow (green = growth, progress — matches the brand theme).
+   This subconscious warmth on hover signals "desirable to click"
+   without breaking the sophistication.
+   ────────────────────────────────────────────────────── */
+.newsletter__btn {
+  padding: 14px 36px;
+  background: var(--color-black);
+  color: white;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 600;
+  font-family: var(--font-display);
+  letter-spacing: -0.3px;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Shimmer sweep on hover — premium feel */
+.newsletter__btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  transition: left 0.4s ease;
+}
+
+.newsletter__btn:hover::before {
+  left: 100%;   /* sweeps across left to right on hover */
+}
+
+.newsletter__btn:hover {
+  background: #1c1c1c;
+  transform: translateY(-2px);
+  /* Green glow = growth/action — from color theory: green = safety, go, positive action */
+  box-shadow: 0 8px 28px rgba(50, 180, 80, 0.2);
+}
+
+.newsletter__btn:active {
+  transform: translateY(0) scale(0.98);
+  box-shadow: none;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 600px) {
+  .newsletter__input {
+    max-width: 100%;
+  }
+
+  .newsletter__deco-circle {
+    width: 130px;
+    height: 130px;
+  }
+}

@@ -1,0 +1,80 @@
+/* ============================================
+   CUSTOM CURSOR
+   
+   HOW POSITIONING WORKS:
+   position: fixed = stays in viewport, doesn't scroll
+   left/top = set by JavaScript (the mouse coordinates)
+   transform: translate(-50%, -50%) = centers the element 
+     ON the cursor point, not at the top-left corner of it.
+     Without this, the dot's top-left corner would be at the cursor,
+     not the dot's center. Try removing it — you'll see!
+   
+   pointer-events: none = CRITICAL!
+   Without this, the cursor divs would intercept all mouse events.
+   Your buttons wouldn't work, links couldn't be clicked.
+   "none" makes our cursor elements "transparent" to mouse events.
+   ============================================ */
+
+/* Dot — small, instant */
+.cursor-dot {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  background: #0a0a0a;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99999;          /* must be above EVERYTHING */
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  will-change: left, top;  /* tells GPU to optimize these properties */
+}
+
+/* Ring — large, lagging */
+.cursor-ring {
+  position: fixed;
+  width: 36px;
+  height: 36px;
+  border: 1.5px solid rgba(10, 10, 10, 0.4);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  will-change: left, top;
+  transition: width 0.25s ease, height 0.25s ease, 
+              border-color 0.25s ease, background 0.25s ease;
+}
+
+/* HOVER STATE — cursor morphs when over links/buttons */
+/* The ring grows and fills slightly, the dot shrinks */
+.cursor-ring--hover {
+  width: 56px;
+  height: 56px;
+  border-color: rgba(10, 10, 10, 0.15);
+  background: rgba(10, 10, 10, 0.04);
+}
+
+.cursor-dot--hover {
+  width: 5px;
+  height: 5px;
+}
+
+/* Hide on mobile — touch devices don't have a cursor */
+@media (max-width: 768px) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
+
+/* 
+  WHY @media (hover: none)?
+  Some devices (iPads with keyboard) report as desktop but have no real cursor.
+  hover: none = device cannot hover = touch device = hide custom cursor.
+  This is more precise than checking screen width alone.
+*/
+@media (hover: none) {
+  .cursor-dot,
+  .cursor-ring {
+    display: none;
+  }
+}
