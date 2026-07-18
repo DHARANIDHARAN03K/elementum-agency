@@ -67,30 +67,31 @@ const ProfileImage = ({ src, alt, size, style, delay, id }) => {
 */
 const profiles = [
   // ── LEFT SIDE COLUMN ─────────────────────────────────
-  // Top-left: above text area, slightly inward is safe
-  { id: 1,  src: 'https://randomuser.me/api/portraits/men/32.jpg',    alt: 'Team member', style: { top: '4%',  left: '10%' }, delay: '0s',   size: 'md' },
+  // Top-left: Safely below the very top edge so it doesn't get clipped
+  { id: 1,  src: 'https://randomuser.me/api/portraits/men/32.jpg',    alt: 'Team member', style: { top: '12%', left: '10%' }, delay: '0s',   size: 'md' },
   // Upper-left: left strip
-  { id: 3,  src: 'https://randomuser.me/api/portraits/women/44.jpg',  alt: 'Team member', style: { top: '22%', left: '2%'  }, delay: '1s',   size: 'lg' },
+  { id: 3,  src: 'https://randomuser.me/api/portraits/women/44.jpg',  alt: 'Team member', style: { top: '28%', left: '2%'  }, delay: '1s',   size: 'lg' },
   // Mid-left: hugging the left edge
-  { id: 5,  src: 'https://randomuser.me/api/portraits/men/12.jpg',    alt: 'Team member', style: { top: '42%', left: '4%'  }, delay: '0.8s', size: 'lg' },
+  { id: 5,  src: 'https://randomuser.me/api/portraits/men/12.jpg',    alt: 'Team member', style: { top: '48%', left: '4%'  }, delay: '0.8s', size: 'lg' },
   // Lower-left
-  { id: 10, src: 'https://randomuser.me/api/portraits/men/11.jpg',    alt: 'Team member', style: { top: '64%', left: '2%'  }, delay: '0.7s', size: 'sm' },
-  // Bottom-left
-  { id: 13, src: 'https://randomuser.me/api/portraits/women/22.jpg',  alt: 'Team member', style: { top: '78%', left: '8%'  }, delay: '0.3s', size: 'md' },
+  { id: 10, src: 'https://randomuser.me/api/portraits/men/11.jpg',    alt: 'Team member', style: { top: '68%', left: '2%'  }, delay: '0.7s', size: 'sm' },
+  // Bottom-left: safely above the bottom edge
+  { id: 13, src: 'https://randomuser.me/api/portraits/women/22.jpg',  alt: 'Team member', style: { top: '85%', left: '8%'  }, delay: '0.3s', size: 'md' },
 
   // ── RIGHT SIDE COLUMN ────────────────────────────────
   // Top-right
-  { id: 2,  src: 'https://randomuser.me/api/portraits/men/45.jpg',    alt: 'Team member', style: { top: '4%',  right: '6%' }, delay: '0.5s', size: 'lg' },
+  { id: 2,  src: 'https://randomuser.me/api/portraits/men/45.jpg',    alt: 'Team member', style: { top: '15%', right: '6%' }, delay: '0.5s', size: 'lg' },
   // Upper-right: right strip
-  { id: 9,  src: 'https://randomuser.me/api/portraits/women/90.jpg',  alt: 'Team member', style: { top: '18%', right: '2%' }, delay: '0.4s', size: 'sm' },
+  { id: 9,  src: 'https://randomuser.me/api/portraits/women/90.jpg',  alt: 'Team member', style: { top: '30%', right: '2%' }, delay: '0.4s', size: 'sm' },
   // Mid-right: safe right strip
-  { id: 7,  src: 'https://randomuser.me/api/portraits/men/22.jpg',    alt: 'Team member', style: { top: '38%', right: '3%' }, delay: '0.6s', size: 'md' },
+  { id: 7,  src: 'https://randomuser.me/api/portraits/men/22.jpg',    alt: 'Team member', style: { top: '48%', right: '3%' }, delay: '0.6s', size: 'md' },
   // Lower-right
-  { id: 8,  src: 'https://randomuser.me/api/portraits/men/53.jpg',    alt: 'Team member', style: { top: '57%', right: '5%' }, delay: '1.2s', size: 'lg' },
+  { id: 8,  src: 'https://randomuser.me/api/portraits/men/53.jpg',    alt: 'Team member', style: { top: '68%', right: '5%' }, delay: '1.2s', size: 'lg' },
   // Bottom-right
-  { id: 11, src: 'https://randomuser.me/api/portraits/women/28.jpg',  alt: 'Team member', style: { top: '74%', right: '2%' }, delay: '0.9s', size: 'sm' },
+  { id: 12, src: 'https://randomuser.me/api/portraits/women/12.jpg',  alt: 'Team member', style: { top: '82%', right: '9%' }, delay: '0.2s', size: 'md' },
+  // Lowest-right
+  { id: 14, src: 'https://randomuser.me/api/portraits/men/62.jpg',    alt: 'Team member', style: { top: '92%', right: '2%' }, delay: '0.9s', size: 'sm' },
 ]
-
 
 const Hero = () => {
   return (

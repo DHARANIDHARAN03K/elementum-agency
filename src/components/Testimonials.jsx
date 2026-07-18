@@ -9,13 +9,20 @@ import '../styles/Testimonials.css'
 */
 
 const testimonialProfiles = [
-  { src: 'https://randomuser.me/api/portraits/men/1.jpg', alt: 'Client', style: { top: '5%', left: '5%' }, size: 'lg' },
-  { src: 'https://randomuser.me/api/portraits/women/2.jpg', alt: 'Client', style: { top: '-5%', left: '40%' }, size: 'sm' },
-  { src: 'https://randomuser.me/api/portraits/men/3.jpg', alt: 'Client', style: { top: '10%', right: '5%' }, size: 'lg' },
-  { src: 'https://randomuser.me/api/portraits/women/7.jpg', alt: 'Client', style: { bottom: '10%', left: '3%' }, size: 'md' },
-  { src: 'https://randomuser.me/api/portraits/men/8.jpg', alt: 'Client', style: { bottom: '-5%', left: '38%' }, size: 'sm' },
-  { src: 'https://randomuser.me/api/portraits/men/9.jpg', alt: 'Client', style: { bottom: '5%', right: '4%' }, size: 'lg' },
-  { src: 'https://randomuser.me/api/portraits/women/11.jpg', alt: 'Client', style: { top: '40%', right: '2%' }, size: 'md' },
+  // Top-left
+  { src: 'https://randomuser.me/api/portraits/men/1.jpg', alt: 'Client', style: { top: '8%', left: '8%' }, size: 'lg' },
+  // Mid-left
+  { src: 'https://randomuser.me/api/portraits/women/2.jpg', alt: 'Client', style: { top: '45%', left: '4%' }, size: 'sm' },
+  // Bottom-left
+  { src: 'https://randomuser.me/api/portraits/men/3.jpg', alt: 'Client', style: { bottom: '15%', left: '12%' }, size: 'lg' },
+  // Bottom-center-left
+  { src: 'https://randomuser.me/api/portraits/women/7.jpg', alt: 'Client', style: { bottom: '5%', left: '30%' }, size: 'md' },
+  // Bottom-center-right
+  { src: 'https://randomuser.me/api/portraits/men/8.jpg', alt: 'Client', style: { bottom: '2%', right: '35%' }, size: 'sm' },
+  // Bottom-right
+  { src: 'https://randomuser.me/api/portraits/men/9.jpg', alt: 'Client', style: { bottom: '18%', right: '8%' }, size: 'lg' },
+  // Mid-right
+  { src: 'https://randomuser.me/api/portraits/women/11.jpg', alt: 'Client', style: { top: '35%', right: '4%' }, size: 'md' },
 ]
 
 const Testimonials = () => {
